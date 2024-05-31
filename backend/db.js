@@ -1,16 +1,18 @@
 // docker restart e1db9182f28a06c3b224fe752458f401eb4d5f1749922457dfe640a97ae3d07a
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const bcrypt = require("bcrypt");
+
 
 mongoose.connect(
-  "mongodb+srv://admin:RitHSjBOuHqRFFnI@knight.33blvnl.mongodb.net/"
+  "mongodb+srv://admin:RitHSjBOuHqRFFnI@knight.33blvnl.mongodb.net/hrms"
 );
+
 
 const EmployeeSchema = new Schema({
   name: {
     type: String,
     required: true,
-    trim: true,
     maxLength: 50,
   },
   email: {
@@ -40,11 +42,14 @@ const EmployeeSchema = new Schema({
     minLength: 6,
     maxLength: 6,
   },
-  officeTimning: {
-    type: Date,
-    startTime: Date,
-    endTime: Date,
+  officeTimings: {
+    type: String,
     required: true
+  },
+  role: {
+    type: String,
+    minLength: 5,
+    required: false
   }
 }, { timestamps: true });
 
@@ -53,6 +58,7 @@ const EmployeeSchema = new Schema({
 const AttendanceSchema = new Schema(
   {
     employee: { type: Schema.Types.ObjectId, ref: "Employee", required: true },
+    email: { type: String, required: true },
     date: { type: Date, required: true },
     loginTime: { type: Date, required: true },
     logoutTime: { type: Date },
@@ -102,10 +108,10 @@ EmployeeSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 
-const SuperEmployeeSchema = new Schema({
-  // Add any additional fields required for superuser
+// const SuperEmployeeSchema = new Schema({
+//   // Add any additional fields required for superuser
 
-});
+// });
 
 // Extend Employee Schema with additional methods for superuser features
 EmployeeSchema.statics.addEmployee = async function (employeeData) {
@@ -179,6 +185,6 @@ EmployeeSchema.statics.disapproveLeaveRequest = async function (
 const Employee = mongoose.model("User", EmployeeSchema);
 const Attendance = mongoose.model("Attendance", AttendanceSchema);
 const Leave = mongoose.model("Leave", LeaveSchema);
-const Superuser = mongoose.model("Superuser", SuperEmployeeSchema);
+// const Superuser = mongoose.model("Superuser", SuperEmployeeSchema);
 
-module.exports = { Employee, Attendance, Leave, Superuser };
+module.exports = { Employee, Attendance, Leave };

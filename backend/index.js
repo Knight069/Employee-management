@@ -9,5 +9,6 @@ app.use(express.json());
 // const router = require("./routes/index.js");
 
 app.use("/api/v1", rootRouter);
+console.log("initiating")
 
 app.listen(3000);

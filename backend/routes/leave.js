@@ -9,8 +9,8 @@ const router = express.Router();
 
 // Apply for leave (up to one year in advance)
 const leaveApplicationSchema = zod.object({
-    startDate: zod.string(),
-    endDate: zod.string(),
+    startDate: zod.date(),
+    endDate: zod.date(),
     reason: zod.string().optional()
 });
 

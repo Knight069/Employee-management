@@ -26,6 +26,7 @@ export const Signup = () => {
           <Heading label={"Sign up"} />
           <SubHeading label={"Enter your infromation to create an account"} />
           <InputBox
+            type="text"
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -33,6 +34,7 @@ export const Signup = () => {
             label={"Name"}
           />
           <InputBox
+            type="text"
             onChange={(e) => {
               setDesignation(e.target.value);
             }}
@@ -40,6 +42,7 @@ export const Signup = () => {
             label={"Designation"}
           />
           <InputBox
+            type="text"
             onChange={(e) => {
               setDepartment(e.target.value);
             }}
@@ -47,6 +50,7 @@ export const Signup = () => {
             label={"Department"}
           />
           <InputBox
+            type="text"
             onChange={(e) => {
               setEmployeecode(e.target.value);
             }}
@@ -54,6 +58,7 @@ export const Signup = () => {
             label={"Employee Code"}
           />
           <InputBox
+            type="text"
             onChange={(e) => {
               setTimings(e.target.value);
             }}
@@ -61,6 +66,7 @@ export const Signup = () => {
             label={"Timings"}
           />
           <InputBox
+            type="text"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -68,6 +74,7 @@ export const Signup = () => {
             label={"Email"}
           />
           <InputBox
+            type="password"
             onChange={(e) => {
               setPassword(e.target.value);
             }}

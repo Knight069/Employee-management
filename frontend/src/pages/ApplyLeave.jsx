@@ -68,6 +68,7 @@ export const ApplyLeave = ({ isOpen, onClose }) => {
               Reason
             </label> */}
             <InputBox
+              type="text"
               placeholder="Leave Reason"
               label={"Reason"}
               onChange={(e) => {

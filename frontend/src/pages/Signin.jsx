@@ -10,7 +10,33 @@ import { SubHeading } from "../components/SubHeading";
 export const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  const handleSignin = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/user/signin",
+        {
+          email,
+          password,
+        }
+      );
+      const { token, role } = response.data;
+
+      localStorage.setItem("token", token);
+
+      if (role === "admin") {
+        navigate("/admindashboard");
+      } else {
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.error("Error during sign-in:", error);
+      setError("Invalid email or password. Please try again.");
+    }
+  };
+
   return (
     <div className="bg-slate-300 h-screen flex justify-center">
       <div className="flex flex-col justify-center">
@@ -18,6 +44,7 @@ export const Signin = () => {
           <Heading label={"Sign in"} />
           <SubHeading label={"Enter your credentials to access your account"} />
           <InputBox
+            type="text"
             placeholder="kuchbhi@gmail.com"
             label={"Email"}
             onChange={(e) => {
@@ -25,27 +52,16 @@ export const Signin = () => {
             }}
           />
           <InputBox
+            type="password"
             placeholder="1234kuchbhi56"
             label={"Password"}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
           />
+          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
           <div className="pt-4">
-            <Button
-              label={"Sign in"}
-              onClick={async () => {
-                const response = await axios.post(
-                  "http://localhost:3000/api/v1/user/signin",
-                  {
-                    email,
-                    password,
-                  }
-                );
-                localStorage.setItem("token", response.data.token);
-                navigate("/dashboard");
-              }}
-            />
+            <Button label={"Sign in"} onClick={handleSignin} />
           </div>
           <BottomWarning
             label={"Don't have an account?"}

@@ -3,7 +3,7 @@ const zod = require("zod");
 const { Employee, Attendance, Leave } = require("../db");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
-const { adminMiddleware } = require("../middleware");
+const { adminMiddleware, authMiddleware } = require("../middleware");
 const { default: mongoose } = require("mongoose");
 
 const router = express.Router();
@@ -19,8 +19,9 @@ const adminEmployeeBody = zod.object({
   officeTimings: zod.string().optional(),
   role: zod.string().optional(),
 });
+// adminMiddleware,
 
-router.post("/employee", adminMiddleware, async (req, res) => {
+router.post("/employee", authMiddleware, adminMiddleware, async (req, res) => {
   const result = adminEmployeeBody.safeParse(req.body);
   if (!result.success) {
     return res.status(400).json({
@@ -36,7 +37,7 @@ router.post("/employee", adminMiddleware, async (req, res) => {
   });
 });
 
-router.put("/employee/:id", adminMiddleware, async (req, res) => {
+router.put("/employee/:id", authMiddleware, adminMiddleware, async (req, res) => {
   const result = adminEmployeeBody.safeParse(req.body);
   if (!result.success) {
     return res.status(400).json({
@@ -54,7 +55,7 @@ router.put("/employee/:id", adminMiddleware, async (req, res) => {
   });
 });
 
-router.delete("/employee/:id", adminMiddleware, async (req, res) => {
+router.delete("/employee/:id", authMiddleware, adminMiddleware, async (req, res) => {
   await Employee.findByIdAndDelete(req.params.id);
 
   res.json({
@@ -63,7 +64,7 @@ router.delete("/employee/:id", adminMiddleware, async (req, res) => {
 });
 
 // View Attendance Records - Admin Route
-router.get("/attendance", adminMiddleware, async (req, res) => {
+router.get("/attendance", authMiddleware, adminMiddleware, async (req, res) => {
   const attendanceRecords = await Attendance.find().populate("employee");
 
   res.json({
@@ -72,7 +73,7 @@ router.get("/attendance", adminMiddleware, async (req, res) => {
 });
 
 // Approve/Disapprove Leave Requests - Admin Routes
-router.put("/leave/:id/approve", adminMiddleware, async (req, res) => {
+router.put("/leave/:id/approve", authMiddleware, adminMiddleware, async (req, res) => {
   const leaveRequest = await Leave.findByIdAndUpdate(
     req.params.id,
     { status: "Approved" },
@@ -85,7 +86,7 @@ router.put("/leave/:id/approve", adminMiddleware, async (req, res) => {
   });
 });
 
-router.put("/leave/:id/disapprove", adminMiddleware, async (req, res) => {
+router.put("/leave/:id/disapprove", authMiddleware, adminMiddleware, async (req, res) => {
   const leaveRequest = await Leave.findByIdAndUpdate(
     req.params.id,
     { status: "Disapproved" },

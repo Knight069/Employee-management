@@ -76,14 +76,27 @@ router.post("/signin", async (req, res) => {
   if (employee && (await employee.comparePassword(req.body.password))) {
     const token = jwt.sign(
       {
-        userId: employee._id,
+        email: employee.email,
         role: employee.role,
       },
       JWT_SECRET
     );
 
+    const loginTime = new Date();
+    const today = loginTime.toISOString().split("T")[0];
+
+    const addAttendance = 
+      await Attendance.create({
+        email: employee.email,
+        employee: employee._id,
+        date: today,
+        loginTime: loginTime,
+      });
+
     res.json({
       token: token,
+      role: employee.role,
+      logintime: addAttendance.loginTime,
     });
     return;
   }
@@ -91,6 +104,42 @@ router.post("/signin", async (req, res) => {
   res.status(400).json({
     message: "Invalid email or password",
   });
+});
+
+
+router.post("/signout", authMiddleware, async (req, res) => {
+  const logoutDate = new Date();
+  const today = new Date().toISOString().split("T")[0]; // Current date
+
+  const attendance = await Attendance.findOne({
+    email: req.email, // Find by email and date
+    date: today,
+  });
+
+  if (!attendance) {
+    return res
+      .status(400)
+      .json({ message: "No attendance record found for today" });
+  }
+
+  const loginDate = new Date(attendance.loginTime);
+  const hoursWorked = (logoutDate - loginDate) / (1000 * 60 * 60);
+
+  let status = "Absent";
+  if (hoursWorked >= 5 && hoursWorked < 9) {
+    status = "Half-day";
+  } else if (hoursWorked >= 9 && hoursWorked < 10) {
+    status = "Present";
+  } else if (hoursWorked >= 10) {
+    status = "Over-time";
+  }
+
+  attendance.logoutTime = logoutDate;
+  attendance.status = status;
+
+  await attendance.save();
+
+  res.json({ message: "Logout successful", attendance });
 });
 
 // Update Employee Information
@@ -102,7 +151,7 @@ const updateBody = zod.object({
   officeTimings: zod.string().optional(),
 });
 
-router.put("/update", authMiddleware, async (req, res) => {
+router.put("/update", authMiddleware, adminMiddleware, async (req, res) => {
   const result = updateBody.safeParse(req.body);
   if (!result.success) {
     return res.status(400).json({
@@ -110,7 +159,7 @@ router.put("/update", authMiddleware, async (req, res) => {
     });
   }
 
-  await Employee.updateOne({ _id: req.userId }, req.body);
+  await Employee.updateOne({ _id: req.email }, req.body);
 
   res.json({
     message: "Updated successfully",
@@ -120,7 +169,7 @@ router.put("/update", authMiddleware, async (req, res) => {
 
 
 // Get User Details
-router.get("/bulk", adminMiddleware, async (req, res) => {
+router.get("/bulk", adminMiddleware, adminMiddleware, async (req, res) => {
   const filter = req.query.filter || "";
 
   const employees = await Employee.find({
