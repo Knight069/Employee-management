@@ -1,0 +1,80 @@
+Jackson is the owner of a company with 20 employees. He currently spends an hour daily managing attendance manually in an Excel sheet. The goal is to automate this process through a Micro HRMS application, reducing Jackson's involvement in attendance management.
+Requirements:
+
+1. Superuser Features:
+
+• Ability to add, edit, delete employees.
+ 
+ View attendance records of all employees.
+
+• Approve or disapprove employee leave requests.
+
+2. Employee Features:
+
+• Login using assigned ID and password.
+• Mark attendance (login and logout).
+Apply for leave (up to one year in advance).
+• View personal attendance records.
+
+3. Business Logic:
+
+• Attendance marking rules based on logout
+time:
+• Before 5 hours: Absent
+Between 5 and 9 hours: Half-day
+Between 9 and 10 hours: Present
+• After 10 hours: Over-time
+
+4. Technology Stack:
+
+• Frontend: ReactJS, Bootstrap/Tailwind (or equivalent CSS framework)
+• Backend: MongoDB
+5. Screens and Features:
+• Registration Screen: For employee registration with fields for 
+name, email, password, department, designation,
+employee code, and office timings.
+• Login Screen: Common for both Admin and Employees.
+• Admin Dashboard. Add/edit/delete employees, approve/disapprove leaves, print attendance reports.
+• Employee Dashboard: Mark login/logout, apply for leave, print self-attendance report.
+• Calendar Integration: Use a Google Calendar-like interface to display attendance.
+
+6. Timeframe: The project should be completed within 7 days after the commencement of work.
+
+Evaluation Criteria
+
+1. Technical Skills:
+
+• Proficiency in ReactJS and Bootstrap.
+• Experience with MongoDB and backend integration.
+• Ability to implement ACL (Access Control Levels) for different user roles.
+
+2. User Interface and Experience:
+
+• Clarity and usability of the registration and login screens.
+• Intuitive design of admin and employee dashboards.
+Effective use of calendars or grids to display attendance.
+
+3. Functionality:
+
+• Correct implementation of login/logout functionality.
+• Accurate handling of business logic for attendance marking.
+• Functionality to apply for leave and handle leave approvals.
+
+4. Code Quality:
+
+• Clean, readable, and maintainable code.
+• Proper use of comments and documentation.
+ Efficient handling of data and API calls.
+
+5. Project Management:
+
+• Ability to deliver the project within the specified timeframe.
+• Proper division and management of tasks.
+• Effective communication and regular updates on progress.
+
+
+Submission Requirements
+
+• Source code (uploaded to a GitHub repository or shared via zip file).
+• A brief report explaining the design decisions, challenges faced, and how they were overcome.
+• A short video demonstration of the application's functionality (optional but recommended)
