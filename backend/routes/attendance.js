@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
 const { authMiddleware, adminMiddleware } = require("../middleware");
 
+const router = express.Router();
+
 
 // Mark Attendance (login and logout)
 router.post('/mark', authMiddleware, async (req, res) => {

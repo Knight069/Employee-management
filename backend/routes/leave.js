@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
 const { authMiddleware, adminMiddleware } = require("../middleware");
 
+const router = express.Router();
 
 // Apply for leave (up to one year in advance)
 const leaveApplicationSchema = zod.object({

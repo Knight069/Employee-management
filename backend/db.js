@@ -41,7 +41,7 @@ const EmployeeSchema = new Schema({
     maxLength: 6,
   },
   officeTimning: {
-    type: TimeRanges,
+    type: Date,
     startTime: Date,
     endTime: Date,
     required: true
