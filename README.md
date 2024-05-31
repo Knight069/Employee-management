@@ -45,7 +45,7 @@ Micro HRMS (Human Resource Management System) is a web application designed to a
 1. **Clone the Repository**
     ```bash
     git clone https://github.com/your-username/Employee-management.git
-    cd micro-hrms
+    cd Employee-management
     ```
 
 2. **Install Frontend Dependencies**
@@ -60,27 +60,27 @@ Micro HRMS (Human Resource Management System) is a web application designed to a
     npm install
     ```
 
-4. **Setup Environment Variables**
+<!-- 4. **Setup Environment Variables**
     Create a `.env` file in the `server` directory with the following content:
     ```env
     PORT=5000
     MONGO_URI=your_mongodb_connection_string
     JWT_SECRET=your_jwt_secret_key
-    ```
+    ``` -->
 
 5. **Run the Backend Server**
     ```bash
-    npm start
+    node index.js
     ```
 
 6. **Run the Frontend Application**
     ```bash
-    cd ../client
-    npm start
+    cd ../frontend
+    npm run dev
     ```
 
 7. **Access the Application**
-    Open your browser and navigate to `http://localhost:3000`.
+    Open your browser and navigate to `http://localhost:5173`.
 
 ## Directory Structure
 micro-hrms/
