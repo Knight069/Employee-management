@@ -73,7 +73,7 @@ router.get("/attendance", authMiddleware, adminMiddleware, async (req, res) => {
 });
 
 // Approve/Disapprove Leave Requests - Admin Routes
-router.put("/leave/:id/approve", authMiddleware, adminMiddleware, async (req, res) => {
+router.put("/leave/requests/:id/approve", authMiddleware, adminMiddleware, async (req, res) => {
   const leaveRequest = await Leave.findByIdAndUpdate(
     req.params.id,
     { status: "Approved" },
@@ -86,7 +86,7 @@ router.put("/leave/:id/approve", authMiddleware, adminMiddleware, async (req, re
   });
 });
 
-router.put("/leave/:id/disapprove", authMiddleware, adminMiddleware, async (req, res) => {
+router.put("/leave/requests/:id/disapprove", authMiddleware, adminMiddleware, async (req, res) => {
   const leaveRequest = await Leave.findByIdAndUpdate(
     req.params.id,
     { status: "Disapproved" },

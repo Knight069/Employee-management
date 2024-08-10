@@ -11,6 +11,7 @@ export const AddEmployeeModal = ({ isOpen, onClose, onAddEmployee }) => {
     designation: "",
     employeeCode: "",
     officeTimings: "",
+    role: "",
   });
 
   const handleChange = (e) => {
@@ -41,6 +42,7 @@ export const AddEmployeeModal = ({ isOpen, onClose, onAddEmployee }) => {
             "designation",
             "employeeCode",
             "officeTimings",
+            "role",
           ].map((field) => (
             <div className="mb-4" key={field}>
               <label

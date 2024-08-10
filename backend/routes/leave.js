@@ -9,8 +9,9 @@ const router = express.Router();
 
 // Apply for leave (up to one year in advance)
 const leaveApplicationSchema = zod.object({
-    startDate: zod.date(),
-    endDate: zod.date(),
+    email: zod.string(),
+    startDate: zod.string(),
+    endDate: zod.string(),
     reason: zod.string().optional()
 });
 
@@ -23,7 +24,8 @@ router.post('/apply', authMiddleware, async (req, res) => {
     }
 
     const leave = new Leave({
-        employee: req.userId,
+        employee: req.employee._id,
+        email: req.body.email,
         startDate: new Date(req.body.startDate),
         endDate: new Date(req.body.endDate),
         reason: req.body.reason,
@@ -34,5 +36,14 @@ router.post('/apply', authMiddleware, async (req, res) => {
 
     res.json({ message: "Leave applied successfully", leave });
 });
+
+
+// write api for fetching all pending leave request for Admin
+router.get("/requests", authMiddleware, adminMiddleware, async (req, res) => {
+    const pendingLeaves = await Leave.find({ status: "Pending" });
+
+    res.json({ leaves: pendingLeaves });
+});
+
 
 module.exports = router;

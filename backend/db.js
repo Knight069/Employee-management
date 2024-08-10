@@ -75,6 +75,7 @@ const AttendanceSchema = new Schema(
 const LeaveSchema = new Schema(
   {
     employee: { type: Schema.Types.ObjectId, ref: "Employee", required: true },
+    email: { type: String, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     reason: { type: String, required: true },
