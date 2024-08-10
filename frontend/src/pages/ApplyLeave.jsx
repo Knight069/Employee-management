@@ -88,7 +88,7 @@ export const ApplyLeave = ({ isOpen, onClose }) => {
             className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
             onClick={async () => {
               const response = await axios.post(
-                "http://13.127.77.225:3000/api/v1/user/leave/apply",
+                "https://13.127.77.225/api/v1/user/leave/apply",
                 {
                   startDate,
                   endDate,

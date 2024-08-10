@@ -10,7 +10,7 @@ export const Appbar = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://13.127.77.225:3000/api/v1/user/signout",
+        "https://13.127.77.225/api/v1/user/signout",
         {},
         {
           headers: {

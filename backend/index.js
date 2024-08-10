@@ -11,4 +11,4 @@ app.use(express.json());
 app.use("/api/v1", rootRouter);
 console.log("initiating")
 
-app.listen(3000);
+app.listen(443);
