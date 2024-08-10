@@ -44,7 +44,7 @@ Micro HRMS (Human Resource Management System) is a web application designed to a
 
 1. **Clone the Repository**
     ```bash
-    git clone https://github.com/your-username/Employee-management.git
+    git clone https://github.com/knight069/Employee-management.git
     cd Employee-management
     ```
 
