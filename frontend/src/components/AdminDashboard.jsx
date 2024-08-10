@@ -30,7 +30,7 @@ export const AdminDashboard = () => {
   const fetchLeaveRequests = async () => {
     try {
       const response = await axios.get(
-        "https://13.127.77.225:3000/api/v1/leave/requests"
+        "http://13.127.77.225:3000/api/v1/leave/requests"
       );
       setLeaveRequests(response.data);
     } catch (error) {
@@ -84,7 +84,7 @@ export const AdminDashboard = () => {
   const handleAddEmployeeSubmit = async (employeeData) => {
     try {
       const response = await axios.post(
-        "https://13.127.77.225:3000/api/v1/employees",
+        "http://13.127.77.225:3000/api/v1/employees",
         employeeData
       );
       setSearchResults([...searchResults, response.data]);
@@ -96,7 +96,7 @@ export const AdminDashboard = () => {
   const handleEditEmployeeSubmit = async (employeeData) => {
     try {
       const response = await axios.put(
-        `https://13.127.77.225:3000/api/v1/employees/${employeeData._id}`,
+        `http://13.127.77.225:3000/api/v1/employees/${employeeData._id}`,
         employeeData
       );
       setSearchResults(
@@ -112,7 +112,7 @@ export const AdminDashboard = () => {
   const handleDeleteEmployeeSubmit = async (employeeId) => {
     try {
       await axios.delete(
-        `https://13.127.77.225:3000/api/v1/employees/${employeeId}`
+        `http://13.127.77.225:3000/api/v1/employees/${employeeId}`
       );
       setSearchResults(searchResults.filter((emp) => emp._id !== employeeId));
     } catch (error) {
@@ -124,7 +124,7 @@ export const AdminDashboard = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        `https://13.127.77.225:3000/api/v1/employees?search=${searchQuery}`
+        `http://13.127.77.225:3000/api/v1/employees?search=${searchQuery}`
       );
       setSearchResults(response.data);
     } catch (error) {
@@ -135,7 +135,7 @@ export const AdminDashboard = () => {
   const handleApproveLeaveRequest = async (leaveRequestId, comment) => {
     try {
       const response = await axios.post(
-        `https://13.127.77.225:3000/api/v1/leave/requests/${leaveRequestId}/approve`,
+        `http://13.127.77.225:3000/api/v1/leave/requests/${leaveRequestId}/approve`,
         { comment }
       );
       setLeaveRequests(
@@ -152,7 +152,7 @@ export const AdminDashboard = () => {
   const handleDisapproveLeaveRequest = async (leaveRequestId, comment) => {
     try {
       const response = await axios.post(
-        `https://13.127.77.225:3000/api/v1/leave/requests/${leaveRequestId}/disapprove`,
+        `http://13.127.77.225:3000/api/v1/leave/requests/${leaveRequestId}/disapprove`,
         { comment }
       );
       setLeaveRequests(

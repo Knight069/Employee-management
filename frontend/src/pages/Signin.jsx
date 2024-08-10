@@ -17,7 +17,7 @@ export const Signin = () => {
   const handleSignin = async () => {
     try {
       const response = await axios.post(
-        "https://13.127.77.225:3000/api/v1/user/signin",
+        "http://13.127.77.225:3000/api/v1/user/signin",
         {
           email,
           password,
